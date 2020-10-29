@@ -29,8 +29,30 @@ class Cat(Animal):
         return "cat:"+str(self.name)+":"+str(self.age)
         
 class Rabbit(Animal):
+    tag = 1
+    def __init__(self, age, parent1=None, parent2=None):
+        Animal.__init__(self, age)
+        self.parent1 = parent1
+        self.parent2 = parent2
+        self.rid = Rabbit.tag
+        Rabbit.tag += 1
+    def get_rid(self):
+        return str(self.rid).zfill(3)
+    def get_parent1(self):
+        return self.parent1
+    def get_parent2(self):
+        return self.parent2
     def speak(self):
         print("meep")
+    def __add__(self, other):
+        # returning object of same type as this class
+        return Rabbit(0, self, other)
+    def __eq__(self, other):
+        parents_same = self.parent1.rid == other.parent1.rid \
+                       and self.parent2.rid == other.parent2.rid
+        parents_opposite = self.parent2.rid == other.parent1.rid \
+                       and self.parent1.rid == other.parent2.rid
+        return parents_same or parents_opposite
     def __str__(self):
         return "rabbit:"+str(self.name)+":"+str(self.age)
         
@@ -78,20 +100,32 @@ class Student(Person):
     def __str__(self):
         return "student:"+str(self.name)+":"+str(self.age)+":"+str(self.major)
 
-jelly = Cat(1)
-jelly.set_name('Jelly')
-tiger = Cat(1)
-tiger.set_name('Tiger')
-bean = Cat(0)
-bean.set_name('Bean')
-print(jelly)
-jelly.speak()
-blob = Animal(1)
-peter = Rabbit(3)
-peter.speak()
-eduardo = Person('Eduardo', 46)
-eduardo.speak()
-enzo = Person('Enzo', 5)
-eduardo.age_diff(enzo)
+# jelly = Cat(1)
+# jelly.set_name('Jelly')
+# tiger = Cat(1)
+# tiger.set_name('Tiger')
+# bean = Cat(0)
+# bean.set_name('Bean')
+# print(jelly)
+# jelly.speak()
+# blob = Animal(1)
+# peter = Rabbit(3)
+# peter.speak()
+# eduardo = Person('Eduardo', 46)
+# eduardo.speak()
+# enzo = Person('Enzo', 5)
+# eduardo.age_diff(enzo)
+# fred = Student('Fred', 18, 'Course VI')
 
-fred = Student('Fred', 18, 'Course VI')
+
+peter = Rabbit(2)
+peter.set_name('Peter')
+hopsy = Rabbit(3)
+hopsy.set_name('Hopsy')
+cotton = Rabbit(1, peter, hopsy)
+cotton.set_name('Cottontail')
+mopsy = peter + hopsy
+print(mopsy == cotton)
+
+
+print(mopsy == cotton)
