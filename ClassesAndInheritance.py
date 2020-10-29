@@ -100,6 +100,32 @@ class Student(Person):
     def __str__(self):
         return "student:"+str(self.name)+":"+str(self.age)+":"+str(self.major)
 
+class MITPerson(Person):
+    nextIdNum = 0 # next ID number to assign
+
+    def __init__(self, name, age):
+        Person.__init__(self, name, age) # initialize Person attributes
+        # new MITPerson attribute: a unique ID number
+        self.idNum = MITPerson.nextIdNum
+        MITPerson.nextIdNum += 1
+
+    def getIdNum(self):
+        return self.idNum
+
+    # sorting MIT people uses their ID number, not name!
+    def __lt__(self, other):
+        return self.idNum < other.idNum
+
+class Grad(MITPerson):
+    pass
+
+def isStudent(obj):
+    return isinstance(obj,Student) or isinstance(obj,Grad)
+
+def isMITPerson(obj):
+    return isinstance(obj,MITPerson) or isinstance(obj,Grad)
+
+
 # jelly = Cat(1)
 # jelly.set_name('Jelly')
 # tiger = Cat(1)
@@ -117,15 +143,22 @@ class Student(Person):
 # eduardo.age_diff(enzo)
 # fred = Student('Fred', 18, 'Course VI')
 
+# peter = Rabbit(2)
+# peter.set_name('Peter')
+# hopsy = Rabbit(3)
+# hopsy.set_name('Hopsy')
+# cotton = Rabbit(1, peter, hopsy)
+# cotton.set_name('Cottontail')
+# mopsy = peter + hopsy
+# print(mopsy == cotton)
 
-peter = Rabbit(2)
-peter.set_name('Peter')
-hopsy = Rabbit(3)
-hopsy.set_name('Hopsy')
-cotton = Rabbit(1, peter, hopsy)
-cotton.set_name('Cottontail')
-mopsy = peter + hopsy
-print(mopsy == cotton)
 
+p1 = MITPerson('Eduardo', 46)
+p2 = MITPerson('Enzo', 5)
 
-print(mopsy == cotton)
+print(p1 > p2)
+
+print(isStudent(p1))
+print(isMITPerson(p1))
+
+debugStop = True
