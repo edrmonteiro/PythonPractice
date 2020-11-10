@@ -4,7 +4,7 @@ Created on 09/11/2020
 
 @author: github.com/edrmonteiro
 
-From: Hackrank challenges
+From: Hackerrank challenges
 Language: Python
 
 """
