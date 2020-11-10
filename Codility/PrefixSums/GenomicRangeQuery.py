@@ -3,7 +3,7 @@
 coding: utf-8
 Created on 30/10/2020
 
-@author: github.com/eduardormonteiro
+@author: github.com/edrmonteiro
 
 From: Codility Lessons
 """

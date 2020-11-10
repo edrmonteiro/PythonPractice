@@ -2,7 +2,7 @@
 coding: utf-8
 Created on 02/11/2020
 
-@author: github.com/eduardormonteiro
+@author: github.com/edrmonteiro
 
 Lesson From: Fluent Python book
 

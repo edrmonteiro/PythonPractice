@@ -2,7 +2,7 @@
 coding: utf-8
 Created on 29/10/2020
 
-@author: github.com/eduardormonteiro
+@author: github.com/edrmonteiro
 
 From: MIT 6.00.1x Introduction to Computer Science and Programming Using Python
 """
