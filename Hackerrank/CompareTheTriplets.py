@@ -6,6 +6,7 @@ Created on 09/11/2020
 
 From: Hackerrank challenges
 Language: Python
+Title: Compare the Triplets
 
 Alice and Bob each created one problem for HackerRank. A reviewer rates the two challenges, awarding points on a scale from 1 to 100 for three categories: problem clarity, originality, and difficulty.
 
