@@ -80,15 +80,15 @@ No person can bribe more than two people, so its not possible to achieve the inp
 """
 
 def minimumBribes(q):
-    swap = 0 
+    timesBribedUntillThisPosition = 0 
     for i, person in enumerate(q):
         if person - i - 1 > 2:
             print("Too chaotic")
             return
         for j in range(max(person - 2, 0), i):
             if q[j] > person:
-                swap += 1
-    print(swap)
+                timesBribedUntillThisPosition += 1
+    print(timesBribedUntillThisPosition)
 
 
 q = [2,1,5,3,4]
