@@ -1,6 +1,6 @@
 """
 coding: utf-8
-Created on 14/11/2020
+Created on 16/11/2020
 
 @author: github.com/edrmonteiro
 
@@ -103,95 +103,34 @@ When the first output query is run, the array is empty. We insert two 's and two
 
 """
 
-# def freqQuery(queries):
-#     results = []
-#     lookup = dict()
-#     freqs = defaultdict(set)
-#     for command, value in queries:
-#         freq = lookup.get(value, 0)
-#         if command == 1:
-#             lookup[value] = freq + 1
-#             freqs[freq].discard(value)
-#             freqs[freq + 1].add(value)
-#         elif command == 2:
-#             lookup[value] = max(0, freq - 1)
-#             freqs[freq].discard(value)
-#             freqs[freq - 1].add(value)
-#         elif command == 3:
-#             results.append(1 if freqs[value] else 0)
-# #     return results  
+from collections import defaultdict
 
 def freqQuery(queries):
-    freq = Counter()
-    cnt = Counter()
-    arr = []
-    for q in queries:
-        if q[0]==1:
-            cnt[freq[q[1]]]-=1
-            freq[q[1]]+=1
-            cnt[freq[q[1]]]+=1
-
-        elif q[0]==2:
-            if freq[q[1]]>0:
-                cnt[freq[q[1]]]-=1
-                freq[q[1]]-=1
-                cnt[freq[q[1]]]+=1
+    arr = defaultdict(int)
+    answer = []
+    freq = defaultdict(set)
+    for item in queries:
+        itemValue = item[1]
+        if item[0] == 1:
+            value = arr[itemValue]
+            arr[itemValue] = value + 1
+            if itemValue in freq[value]:
+                freq[value].remove(itemValue)
+            freq[value + 1].add(itemValue)
+        elif item[0] == 2:
+            value = arr[itemValue]
+            if value > 0:
+                value = arr[itemValue]
+                arr[itemValue] = value - 1
+                if itemValue in freq[value]:
+                    freq[value].remove(itemValue)
+                freq[value - 1].add(itemValue)
         else:
-            if cnt[q[1]]>0:
-                arr.append(1)
+            if freq[itemValue]:
+                answer.append(1)
             else:
-                arr.append(0)
-    return arr
-
-
-# def freqQuery(queries):
-#     stack = {}
-#     valuesStack = []
-#     answer = []
-#     for query in queries:
-#         if query[0] == 1:            
-#             stack[query[1]] = stack.get(query[1], 0) + 1
-#             try:
-#                 itemValue = stack.get(query[1], 0)
-#                 valuesStack.remove(itemValue - 1)
-#             except:
-#                 pass
-#             valuesStack.append(itemValue)
-#         elif query[0] == 2:            
-#             stack[query[1]] = max(stack.get(query[1], 0) - 1, 0)
-#             try:
-#                 itemValue = stack.get(query[1], 0)
-#                 valuesStack.remove(itemValue + 1)
-#             except:
-#                 pass
-#             valuesStack.append(itemValue)
-#         elif query[0] == 3:
-#             try:
-#                 valuesStack.index(query[1])
-#                 answer.append(1)
-#             except:
-#                 answer.append(0)
-#     return answer
-
-# def freqQuery(queries):
-#     stack = {}
-#     answer = []
-#     for query in queries:
-#         if query[0] == 1:
-#             stack[query[1]] = stack.get(query[1], 0) + 1
-#         elif query[0] == 2:
-#             stack[query[1]] = max(stack.get(query[1], 0) - 1, 0)
-#         elif query[0] == 3:
-#             exists = False
-#             for key, value in stack.items():
-#                 if value == query[1]:
-#                     exists = True
-#             if exists:
-#                 answer.append(1)
-#             else:
-#                 answer.append(0)
-#     return answer
-        
+                answer.append(0)
+    return answer
 
 
 queries = [[1, 5], [1, 6],[3, 2],[1, 10],[1, 10],[1, 6],[2, 5],[3, 2]]
