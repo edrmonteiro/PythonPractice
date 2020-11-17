@@ -3,7 +3,6 @@ coding: utf-8
 Created on 16/11/2020
 
 @author: github.com/edrmonteiro
-
 From: Hackerrank challenges
 Language: Python
 Title: Frequency Queries
