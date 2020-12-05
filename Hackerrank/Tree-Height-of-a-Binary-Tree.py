@@ -103,6 +103,7 @@ class Node:
 def height(root):
     leftHeight = 0
     rightHeight = 0
+    print(root)
     
     if root.left:
         leftHeight = 1 + height(root.left)
@@ -110,3 +111,45 @@ def height(root):
         rightHeight = 1 + height(root.right)
     
     return leftHeight if leftHeight > rightHeight else rightHeight
+
+
+root = Node(3) 
+
+node2 = Node(2) 
+root.left = node2 
+node1 = Node(1) 
+node2.left = node1 
+
+
+node5 = Node(5)
+root.right = node5
+node4 = Node(4)
+node5.left = node4
+
+node6 = Node(6)
+node5.right = node6
+node7 = Node(7)
+node6.right = node7
+
+print(height(root))
+
+
+
+root = Node(3) 
+root.left = Node(2) 
+root.left.left = Node(1)
+
+root.right = Node(5)
+root.right.left = Node(4)
+root.right.right = Node(6)
+root.right.right.right = Node(7)
+
+print(height(root))
+
+
+stop = True
+
+
+
+
+
