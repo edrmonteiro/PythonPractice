@@ -42,6 +42,15 @@ def main():
 main()
 
 
+"""
+Explanation: 
+Runtime Complexity: Linear, O(n)
+Memory Complexity: Constant, O(1)
+A naive solution is to simply search for every integer between 1 and n in the input array, stopping the search as soon as there is a missing number. But we can do better. Here is a linear, O(n) solution that uses the arithmetic series sum formula.​​ Here are the steps to find the missing number:
+Find the sum sum_of_elements of all the numbers in the array. This would require a linear scan, O(n).
+Then find the sum expected_sum of first n numbers using the arithmetic series sum formula
+The difference between these, i.e., expected_sum - sum_of_elements, is the missing number in the array.
 
+"""
 
 
