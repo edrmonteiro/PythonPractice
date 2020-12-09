@@ -25,3 +25,12 @@ print("find_sum_of_two(v, " + str(test[i]) + ") = " + str(output))
 
 stop = True
 
+"""
+Runtime Complexity: Linear, O(n)
+Memory Complexity: Linear, O(n)
+You can use the following algorithm to find a pair that add up to the target (say, val).
+Scan the whole array once and store visited elements in a hash set.
+During scan, for every element e in the array, we check if val - e is present in the hash set, i.e., val - e is already visited.
+If val - e is found in the hash set, it means there is a pair (e, val - e) in the array whose sum is equal to the given val.
+If we have exhausted all elements in the array and didn’t find any such pair, the function will return false.
+"""
