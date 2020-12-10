@@ -55,13 +55,12 @@ where our start node, , is node . There is only one edge here, so node  is unrea
 Note: Recall that the actual length of each edge is , and we print  as the distance to any node that's unreachable from .
 """
 
-import queue
 from collections import defaultdict
 
 class Graph:
     def __init__(self, n):
         self.n = n
-        self.edges = defaultdict(lambda: [])
+        self.edges = defaultdict(list)
 
     def connect(self,x,y):
         self.edges[x].append(y)
@@ -70,24 +69,22 @@ class Graph:
     def find_all_distances(self, root):
         distances = [-1 for i in range(self.n)]
         unvisited = set([i for i in range(self.n)])
-        q = queue.Queue()
-
+        queue = []
         distances[root] = 0
         unvisited.remove(root)
-        q.put(root)
+        queue.append(root)
 
-        while not q.empty():
-            node = q.get()
+        while len(queue) > 0:
+            node = queue.pop(0)
             children = self.edges[node]
             height = distances[node]
             for child in children:
                 if child in unvisited:
                     distances[child] = height + 6
                     unvisited.remove(child)
-                    q.put(child)
+                    queue.append(child)
 
         distances.pop(root)
-
         print(" ".join(map(str,distances)))
 
 t = int(input())
@@ -100,4 +97,7 @@ for i in range(t):
     s = int(input())
     graph.find_all_distances(s-1)
 
-    
+
+
+
+stop = True
