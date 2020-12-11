@@ -150,87 +150,108 @@ Here we perform swap operations at the nodes whose depth is either 2 or 4 for K 
 
 """
 
+import os
 import sys
 
 #
 # Complete the swapNodes function below.
 #
 
-#tree node
 class Node:
+    screen = []
     def __init__(self, data, level):
         self.data = data
+        self.level = level
         self.left = None
         self.right = None
-        self.level = level
-
+    
 def swapNodes(indexes, queries):
+    #modifying the recursion limit in python because of #10 and #11
+    sys.setrecursionlimit(1500)
+    def swap(node, queries):        
+        if node.left:
+            swap(node.left, queries)
+        if node.right:
+            swap(node.right, queries)                
+        if node.level in queries:
+            node.left, node.right = node.right, node.left
+        return node
+
+    def display(root):
+        if root.left:
+            display(root.left)
+        item.append(root.data)
+        if root.right:
+            display(root.right)    
+
+    def createTree(indexes):
+        # create the tree
+        root = Node(1, 1)
+        queue = []
+        queue.append(root)
+        maxLevel = 1
+        for index in indexes:
+            node = queue.pop(0)
+            if index[0] != -1:
+                nodeLeft = Node(index[0], node.level + 1)
+                node.left = nodeLeft
+                queue.append(nodeLeft)
+                maxLevel = max (maxLevel, node.level + 1)
+            if index[1] != -1:
+                nodeRight = Node(index[1], node.level + 1)
+                node.right = nodeRight
+                queue.append(nodeRight)
+            maxLevel = node.level 
+        return root, maxLevel
+    root, maxLevel = createTree(indexes)
+    # get translate information
+    transverseLevels = []
+    for lev in queries:
+        transverseLevelsPartial = []
+        for i in range(lev, maxLevel, lev):
+            transverseLevelsPartial.append(i)
+        transverseLevels.append(transverseLevelsPartial)
+    #print(transverseLevels)
+    itemTotal = []
+    item = []
+    for levels in transverseLevels:
+        root = swap(root, levels)
+        display(root)
+        itemTotal.append(item)
+        item = []
+    return itemTotal
+    
+
     #
     # Write your code here.
     #
-    #modifying the recursion limit in python because of #10 and #11
-    # sys.setrecursionlimit(1500)
-
-    #traverse the tree in order
-    def traverse_inorder(tree):
-        if tree.left:
-            traverse_inorder(tree.left)
-        item.append(tree.data)
-        if tree.right:
-            traverse_inorder(tree.right)
-    #building the tree
-    def create_tree(indexes):
-        #using queue to create the tree: BFS
-        queue = []
-        root = Node(1, 1)
-        maxlevel = 1
-        queue.append(root)
-        for left, right in indexes:
-            currentNode = queue.pop(0)
-            if left != -1:
-                leftNode = Node(left, currentNode.level + 1)
-                currentNode.left = leftNode
-                queue.append(leftNode)
-            if right != -1:
-                rightNode = Node(right, currentNode.level + 1)
-                currentNode.right = rightNode
-                queue.append(rightNode)
-            #Finally the q is empty, and currentNode is at lowest level. Because there are always [-1, -1]s at the end of the indexes
-            maxlevel = currentNode.level
-        return (root, maxlevel)
-
-    #swaping respectively
-    def swap_tree(tree, ks):
-        if tree.left:
-            swap_tree(tree.left, ks)
-        if tree.right:
-            swap_tree(tree.right, ks)
-        if tree.level in ks:
-            tree.left, tree.right = tree.right, tree.left
-        return tree
-
-
-    tree, maxlevel = create_tree(indexes)
-    ret = []
-    for k in queries:
-        item = []
-        #list comprehensions
-        ks = [x for x in range(1, maxlevel+1) if x%k==0]
-        root = swap_tree(tree, ks)
-        traverse_inorder(root)
-        ret.append(item)
-    return ret
-
 
 indexes = [[2, 3], [-1, -1], [-1, -1]]
 queries = [1, 1]
-result = swapNodes(indexes, queries)        # 3 1 2     2 1 3
-print(result)
+print(swapNodes(indexes, queries))  # 3 1 2    2 1 3
 
 indexes = [[2, 3], [-1, 4], [-1, 5], [-1, -1], [-1, -1]]
 queries = [2]
-result = swapNodes(indexes, queries)        # 4 2 1 5 3
-print(result)
+print(swapNodes(indexes, queries))  # 4 2 1 5 3
+
+indexes = [[2, 3], [4, -1], [5, -1], [6, -1], [7, 8], [-1, 9], [-1, -1], [10, 11], [-1, -1], [-1, -1], [-1, -1]]
+queries = [2, 4]
+print(swapNodes(indexes, queries))  # 2 9 6 4 1 3 7 5 11 8 10      2 6 9 4 1 3 7 5 10 8 11
+
+# if __name__ == '__main__':
+#     fptr = sys.stdout
+#     n = int(input())
+#     indexes = []
+#     for _ in range(n):
+#         indexes.append(list(map(int, input().rstrip().split())))
+#     queries_count = int(input())
+#     queries = []
+#     for _ in range(queries_count):
+#         queries_item = int(input())
+#         queries.append(queries_item)
+#     result = swapNodes(indexes, queries)
+#     fptr.write('\n'.join([' '.join(map(str, x)) for x in result]))
+#     fptr.write('\n')
+#     fptr.close()
 
 stop = True
-
