@@ -3,8 +3,8 @@
 Print all braces combinations for a given value n so that they are balanced. For this solution, we will be using recursion. 
 """
 import copy
+
 def print_all_braces_rec(n, left_count, right_count, output, result):
- 
   if left_count >= n and right_count >= n:
     result.append(copy.copy(output))
     
