@@ -18,11 +18,8 @@ def str_rev(str, start, end):
     start += 1
     end -= 1
 
-
 def reverse_words(sentence):
-
   # Here sentence is a null-terminated string ending with char '\0'.
-
   if sentence == None or len(sentence) == 0:
     return
 
@@ -57,12 +54,10 @@ def reverse_words(sentence):
     str_rev(sentence, start, end - 1)
     start = end
 
-
 def get_array(t):
   # s = array('u', t)
   s = t.split()
   return s
-
 
 def print_array(s):
   i = 0
@@ -70,7 +65,6 @@ def print_array(s):
     print(s[i])
     i += 1
   print ()
-
 
 s = get_array('Hello World!')
 print_array(s)
