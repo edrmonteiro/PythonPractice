@@ -299,7 +299,7 @@ There are  integers, so we must print the new median on a new line as each integ
 # print(runningMedian(a))     
 # stop = True
 
-from heapq import heappush as push, heappushpop as pushpop
+from heapq import heappush, heappushpop
 
 class Heap:
 	def __init__(self):
@@ -313,12 +313,12 @@ class Heap:
 			return float('%.1f' % round((self.upper[0] - self.lower[0]) / 2, 1))
 
 	def add(self, value):
-		value = pushpop(self.upper, value)
-		value = -pushpop(self.lower, -value)
+		value = heappushpop(self.upper, value)
+		value = -heappushpop(self.lower, -value)
 		if len(self.upper) <= len(self.lower):
-			push(self.upper, value)
+			heappush(self.upper, value)
 		else:
-			push(self.lower, -value)
+			heappush(self.lower, -value)
 
 def runningMedian(a):
 	heap = Heap()

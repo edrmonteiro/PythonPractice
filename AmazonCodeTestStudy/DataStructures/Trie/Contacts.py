@@ -65,12 +65,11 @@ Find and print the number of contact names beginning with hak. There are current
 # import fileinput
 
 class Node:
-    def __init__(self, children=None, isLeaf=False, count=0):
+    def __init__(self, children=None, count=0):
         if children is None:
             self.children = {}
         else:
             self.children = children
-        self.isLeaf = isLeaf
         self.count = count
 
 
@@ -90,7 +89,7 @@ def add(node, name):
             del node.children[key]
             node.children[common] = newNode
             return add(newNode, extraName2)
-    node.children[name] = Node(isLeaf=True, count=1)
+    node.children[name] = Node(count=1)
 
 
 def find(node, name):
