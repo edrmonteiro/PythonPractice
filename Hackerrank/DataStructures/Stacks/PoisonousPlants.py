@@ -71,6 +71,7 @@ def poisonousPlants(pop):
         stack.append((item, days))    
     return maxdays
 
-p = [6, 5, 8, 4, 7, 10, 9]
+p = [6, 5, 8, 4, 7, 10, 9]  #2
+p = [1, 2, 4, 3, 2, 1, 7]   #3
 print(poisonousPlants(p))
 stop = True
