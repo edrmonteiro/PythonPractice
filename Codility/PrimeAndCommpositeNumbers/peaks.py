@@ -82,25 +82,24 @@ def solution(A):
     if len(A) < 3:
         return 0
     peaks = []
-    for i in range(1, len(A) - 1):
+    for i in range(1, len(A)-1):
         if A[i - 1] < A[i] > A[i + 1]:
             peaks.append(i)
 
-    for size in range(len(peaks), 0, -1):
-        if len(A) % size == 0:
-            blockLen = len(A) // size
-            check = [False] * size
-
-            for peak in peaks:
-                i = peak // blockLen
-                if check[i] == False:
-                    check[i] = True
-                if check.count(True) == size:
-                    return size
+    for qtd in range(len(peaks), 0, -1):
+        if len(A) % qtd == 0:
+            block_len = len(A)//qtd
+            block = [False]*qtd
+            block_count = 0
+            for block_num in range(len(peaks)):
+                idx = peaks[block_num] // block_len
+                if block[idx] == False:
+                    block[idx] = True
+                    block_count += 1
+            if block_count == qtd:
+                return block_count
 
     return 0
-
-
 
 
 A = [ 1, 2, 3, 4, 3, 4, 1, 2, 3, 4, 6, 2]
