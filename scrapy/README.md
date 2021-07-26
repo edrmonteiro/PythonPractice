@@ -6,6 +6,8 @@ sudo apt-get install python3 python3-dev python3-pip libxml2-dev libxslt1-dev zl
 
 inside a virtualenv:
 pip install scrapy
+
+# 1_first_project
 ## start project
 
 scrapy startproject projectName
@@ -53,3 +55,32 @@ outside shell from quotes_spider directory
 scrapy crawl quotes 
 
 if the website does not have robots.txt file, go to settings.py and change ROBOTSTXT_OBEY to false
+
+# 3_advanced
+
+## scrapy process
+
+scrapy startproject quotes_spider
+cd quotes_spider
+scrapy genspider quotes quotes.toscrape.com
+scrapy shell 'http://quotes.toscrape.com/'
+quotes = response.xpath('//*[@class="quote"]')
+quote = quotes[0]
+quote.extract()
+quote.xpath('//a')
+quote.xpath('.')
+quote.xpath('//*[@class="text"]/text()').extract()
+quote.xpath('//*[@class="text"]/text()').extract_first()
+quote.xpath('//*[@itemprop="author"]/text()').extract_first()
+quote.xpath('.//*[@itemprop="keywords"]/@content').extract_first()
+quote.xpath('.//*[@class="tag"]//text()').extract()
+
+
+next_page_url = response.xpath('//*[@class="next"]/a/@href').extract_first()
+response.urljoin(next_page_url)
+
+## save project result into file
+
+scrapy crawl quotes -o items.csv
+scrapy crawl quotes -o items.json
+scrapy crawl quotes -o items.xml
